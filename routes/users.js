@@ -29,7 +29,7 @@ router.post('/create-user', async (req, res) => {
             user: { name, lastname, email },
         });
     } catch (err) {
-        console.error('Error al crear usuario:', err.message);
+        console.error('Error al crear usuario:', err);
 
         if (err.code === 11000) {
             return res.status(400).json({ error: 'El correo ya está registrado' });
