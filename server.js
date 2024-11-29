@@ -11,10 +11,11 @@ const port = process.env.PORT || 5000;
 
 const suscriptionsRouter = require('./routes/suscriptions');
 const usersRouter = require('./routes/users');
+const imagesRouter = require('./routes/images');
 
 // Configuración de Web Push
 webpush.setVapidDetails(
-  'mailto:anthony.martinez.21s@utzmg.edu.mx',
+  'mailto:cristopher.alvarado.21s@utzmg.edu.mx',
   process.env.VAPID_PUBLIC_KEY,
   process.env.VAPID_PRIVATE_KEY
 );
@@ -39,6 +40,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 // Rutas
 app.use('/api/suscripciones', suscriptionsRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/images', imagesRouter);
 
 // Iniciar el servidor
 app.listen(port, () => {

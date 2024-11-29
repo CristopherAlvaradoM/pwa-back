@@ -7,7 +7,6 @@ const User = require('../models/user'); // Importar el modelo actualizado
 router.post('/subscribe', async (req, res) => {
   try {
     const { userId, subscription } = req.body;
-
     // Validar que se recibió el objeto de suscripción correctamente
     if (!subscription || !subscription.endpoint || !subscription.keys || !subscription.keys.p256dh || !subscription.keys.auth) {
       return res.status(400).json({ error: 'Faltan campos necesarios en la suscripción' });
@@ -53,7 +52,6 @@ router.post('/send', async (req, res) => {
 
     // Buscar todos los usuarios con los IDs proporcionados
     const users = await User.find({ '_id': { $in: userIds } });
-
     // Verificar si existen usuarios con las suscripciones
     if (users.length === 0) {
       return res.status(404).json({ error: 'Ningún usuario encontrado con las suscripciones' });
@@ -66,7 +64,6 @@ router.post('/send', async (req, res) => {
           endpoint: user.suscripcion.endpoint,
           keys: user.suscripcion.keys
         };
-
         // Enviar la notificación
         return webpush.sendNotification(pushSubscription, JSON.stringify(payload)).catch(err => {
           console.error('Error enviando notificación a:', user._id, err);
